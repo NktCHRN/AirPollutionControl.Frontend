@@ -1,0 +1,37 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Initially hide completely off-screen */
+    width: 50%; /* Adjust to 1/3 or 1/2 width */
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 1000; /* Ensure it's above the map */
+  }
+  
+  .sidebar.open {
+    right: 0; /* Move the sidebar to the right when open */
+  }
+  
+  .sidebar-content h2 {
+    margin-top: 0;
+  }
+  
+  .sidebar-content p {
+    margin: 10px 0;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }

@@ -1,5 +1,8 @@
 .App {
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .App-header {
@@ -34,4 +37,9 @@
 
 .App-header nav ul li a:hover {
   color: #4CAF50; /* Highlight color on hover */
+}
+
+.map-container {
+  margin: 20px;
+  height: 400px;
 }
