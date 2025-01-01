@@ -3,9 +3,11 @@ import MapComponent from "./MapComponent";
 
 function Map({ handleLocationClick }) {
   return (
-    <div className="map-container">
-      <h2>Select Location on the Map</h2>
-      <MapComponent setLocation={handleLocationClick} />
+    <div>
+      <h2>Click location on the map for air quality information</h2>
+      <div className="map-container">
+        <MapComponent setLocation={handleLocationClick} />
+      </div>    
     </div>
   );
 }
