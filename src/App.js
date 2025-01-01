@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     if (location) {  // Only send request if location is available
-      fetch("http://127.0.0.1:5000/api/test", {
+      fetch("http://127.0.0.1:5000/api/air-quality", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +24,23 @@ function App() {
         }),
       })
         .then((response) => response.json())
-        .then((data) => setMessage(`Lat: ${data.lat}, Lng: ${data.lng}`))  // Set message with lat and lng
+        .then((data) => {
+          if (data.error) {
+            setMessage(`Error: ${data.error}`);  // Set error message if API returns error
+          } else {
+            setMessage(`
+              European AQI: ${data.european_aqi}<br />
+              PM10: ${data.pm10}<br />
+              PM2.5: ${data.pm2_5}<br />
+              Carbon monoxide: ${data.carbon_monoxide}<br />
+              Nitrogen dioxide: ${data.nitrogen_dioxide}<br />
+              Sulphur dioxide: ${data.sulphur_dioxide}<br />
+              Ozone: ${data.ozone}<br />
+              Aerosol optical depth: ${data.aerosol_optical_depth}<br />
+              Dust: ${data.dust}
+            `);
+          }
+        })
         .catch((error) => console.error("Error fetching data:", error));
     }
   }, [location]);

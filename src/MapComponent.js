@@ -1,8 +1,7 @@
-import React from "react";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import React, { useState } from "react";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-// Component to handle map clicks
 function LocationMarker({ setLocation }) {
   useMapEvents({
     click(e) {
@@ -13,15 +12,17 @@ function LocationMarker({ setLocation }) {
 }
 
 function MapComponent({ setLocation }) {
+  const [position, setPosition] = useState([50.4501, 30.5236]); // Kyiv coordinates
+
   return (
-    <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: "500px", width: "100%" }}>
+    <MapContainer center={position} zoom={13} style={{ height: "500px", width: "100%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      <LocationMarker setLocation={setLocation} />
+      <LocationMarker setLocation={(latlng) => { setPosition(latlng); setLocation(latlng); }} />
     </MapContainer>
   );
 }
 
-export default MapComponent; // Ensure this is a default export
+export default MapComponent;
