@@ -6,6 +6,9 @@ import Notifications from "./Notifications";
 import About from "./About";
 import Map from "./Map";
 import DetailedStats from "./DetailedStats"; // Import DetailedStats component
+import Login from "./Login"; // Import Login component
+import Registration from './Registration';
+import Account from './Account'; // Import Account component
 
 function App() {
   const [message, setMessage] = useState("");
@@ -59,6 +62,14 @@ function App() {
     setSidebarOpen(false);
   };
 
+  // Check if the user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setIsLoggedIn(!!token); // Update login status if token changes
+  }, []);
+
   return (
     <Router>
       <div className="App">
@@ -71,6 +82,12 @@ function App() {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/notifications">Notifications</Link></li>
               <li><Link to="/about">About</Link></li>
+              {/* Conditionally render Login or Account button */}
+              {isLoggedIn ? (
+                <li><Link to="/account">Account</Link></li> // Link to account page
+              ) : (
+                <li><Link to="/login">Login</Link></li>
+              )}
             </ul>
           </nav>
         </header>
@@ -81,6 +98,9 @@ function App() {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/about" element={<About />} />
             <Route path="/detailed-stats" element={<DetailedStats location={location} message={message} />} />
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} /> } /> {/* Login route */}
+            <Route path="/registration" element={<Registration />} />
+            <Route path="/account" element={<Account setIsLoggedIn={setIsLoggedIn} />} /> {/* Account route */}
           </Routes>
         </main>
 

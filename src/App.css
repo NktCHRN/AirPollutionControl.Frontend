@@ -263,3 +263,135 @@ main {
 .location-info p {
   margin: 5px 0;
 }
+
+.login-container {
+  background-color: white;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+  color: #4caf50;
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.login-section, .form-container {
+  margin: 20px 0;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 10px;
+  margin: 20px 0;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+.loading-text, .error-text {
+  color: #555;
+  text-align: center;
+}
+
+.error-text {
+  color: red;
+}
+
+.info-text {
+  color: #555;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+/* Account Page Styles */
+.account-container {
+  background-color: white;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.account-container h2 {
+  color: #4caf50;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 10px;
+}
+
+.account-details {
+  font-size: 1rem;
+  color: #555;
+}
+
+.account-details p {
+  margin: 10px 0;
+}
+
+.account-details strong {
+  color: #333;
+  font-weight: bold;
+}
+
+.account-container .btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.account-container .btn:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-size: 1.2rem;
+}
