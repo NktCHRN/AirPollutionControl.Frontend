@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 const Account = ({ setIsLoggedIn }) => {
   const [user, setUser] = useState(null);
+  const [roles, setRoles] = useState([]);
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
 
+  // Fetch user data and roles
   useEffect(() => {
     if (!accessToken) {
       navigate("/login"); // Redirect to login if user is not logged in
@@ -30,6 +32,25 @@ const Account = ({ setIsLoggedIn }) => {
           console.error("Error fetching user data:", err);
           setError("Failed to fetch user data");
         });
+
+      // Fetch user roles
+      fetch("https://localhost:7286/api/user/roles", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.isSuccessful) {
+            setRoles(data.data); // Set the roles data
+          } else {
+            setError(data.error.errorMessage); // Show error if any
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching roles:", err);
+          setError("Failed to fetch roles");
+        });
     }
   }, [accessToken, navigate]);
 
@@ -48,11 +69,9 @@ const Account = ({ setIsLoggedIn }) => {
         if (!response.ok) {
           throw new Error("Logout failed, status: " + response.status);
         }
-        // If the response is empty, return a mock success object
         return {}; // Empty response, mock successful data
       })
       .then((data) => {
-        // Since there's no body in the response, just assume it's successful if no error occurred
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         setIsLoggedIn(false);
@@ -84,6 +103,9 @@ const Account = ({ setIsLoggedIn }) => {
         <p><strong>Phone Number:</strong> {user.phoneNumber}</p>
         <p><strong>Patronymic:</strong> {user.patronymic}</p>
         <p><strong>Birthday:</strong> {new Date(user.birthday).toLocaleDateString()}</p>
+
+        {/* Display user roles */}
+        <p><strong>Roles:</strong> {roles.length > 0 ? roles.join(", ") : "No roles assigned"}</p>
       </div>
       <button onClick={handleLogout} className="btn">
         Logout

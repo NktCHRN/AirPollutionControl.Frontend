@@ -16,6 +16,7 @@ function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [hourlyData, setHourlyData] = useState(null);
   const [address, setAddress] = useState(null);
+  const [roles, setRoles] = useState([]);
 
   useEffect(() => {
     if (location) {
@@ -70,6 +71,31 @@ function App() {
     setIsLoggedIn(!!token); // Update login status if token changes
   }, []);
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken && isLoggedIn) {
+      // Fetch roles if the user is logged in
+      fetch("https://localhost:7286/api/user/roles", {
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.isSuccessful) {
+            setRoles(data.data); // Set the roles data
+          } else {
+            console.error(data.error.errorMessage);
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching roles:", err);
+        });
+    } else {
+      setRoles([]); // Reset roles if not logged in
+    }
+  }, [isLoggedIn]); // This will run whenever `isLoggedIn` changes
+
   return (
     <Router>
       <div className="App">
@@ -95,7 +121,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Map handleLocationClick={handleLocationClick} />} />
-            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/notifications" element={<Notifications isLoggedIn={isLoggedIn} roles={roles}/>} />
             <Route path="/about" element={<About />} />
             <Route path="/detailed-stats" element={<DetailedStats location={location} message={message} />} />
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} /> } /> {/* Login route */}
