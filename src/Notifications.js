@@ -149,7 +149,7 @@ function Notifications({ isLoggedIn, roles }) {
   )}
 
   {/* Show the notification sending form if the user is an AgglomerationAdmin */}
-  {roles.includes("AgglomerationAdmin") && (
+  {(roles.includes("AgglomerationAdmin") || roles.includes("AgglomerationGovernmentMember") || roles.includes("CountryAdmin") || roles.includes("CountryGovernmentMember")) && (
     <div className="send-notification-form">
       <h3>Send Notification</h3>
       <input
